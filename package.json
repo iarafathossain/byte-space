@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@t3-oss/env-nextjs": "^0.13.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
