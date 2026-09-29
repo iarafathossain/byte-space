@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChartNoAxesColumnIncreasing, Star } from "lucide-react";
 
-import { Avatar, AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar";
+import UserAvatar from "@/components/shared/user-avatar";
+import { AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import type { Course } from "@/data/courses";
@@ -34,7 +35,7 @@ export default function CourseCard({ course, className }: CourseCardProps) {
   return (
     <Card
       className={cn(
-        "relative gap-5 rounded-[1.5rem] border border-border p-4 ring-0 transition-colors hover:border-primary/40",
+        "relative gap-5 rounded-[1.5rem] border border-border p-4 pb-5 text-left ring-0 transition-colors hover:border-primary/40",
         className,
       )}
     >
@@ -94,10 +95,8 @@ export default function CourseCard({ course, className }: CourseCardProps) {
           </Badge>
 
           <AvatarGroup aria-label={`${students.total} students enrolled`}>
-            {students.avatars.map((StudentAvatar, index) => (
-              <Avatar key={index} className="after:hidden">
-                <StudentAvatar aria-hidden="true" className="size-full" />
-              </Avatar>
+            {students.avatars.map((avatar, index) => (
+              <UserAvatar key={index} src={avatar} />
             ))}
             <AvatarGroupCount className="bg-brand-accent text-xs font-medium text-brand-accent-foreground">
               {students.total}

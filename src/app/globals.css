@@ -27,6 +27,7 @@
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
   --color-footer-border: var(--footer-border);
+  --color-surface-soft: var(--surface-soft);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -112,6 +113,8 @@
   --footer: oklch(1 0 0);
   --footer-foreground: oklch(26.46% 0.0057 271.2);
   --footer-border: oklch(85.69% 0.0047 258.33);
+  /* Soft section surface (#FAFAFA) */
+  --surface-soft: oklch(0.985 0 0);
 }
 
 .dark {
@@ -120,6 +123,7 @@
   --footer: oklch(21.32% 0.0042 264.48);
   --footer-foreground: oklch(97.04% 0.0013 286.38);
   --footer-border: oklch(35.32% 0.0087 276.91);
+  --surface-soft: oklch(0.18 0 0);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -191,6 +195,86 @@ h6 {
   @media (width >= 48rem) {
     --grid-size: 120px;
   }
+}
+
+/*
+ * Growth section background: soft surface with the five blurred Figma glows.
+ * Positions are from the 1440px frame, anchored to the horizontal center.
+ */
+@utility growth-glow {
+  background-color: var(--surface-soft);
+  background-image:
+    radial-gradient(
+      circle 568.5px at calc(50% + 570.5px) 1356.5px,
+      color-mix(in oklch, var(--brand) 24%, transparent) 0%,
+      color-mix(in oklch, var(--brand) 5.52%, transparent) 53%,
+      color-mix(in oklch, var(--brand) 1.44%, transparent) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 568.5px at calc(50% - 303.5px) 102.5px,
+      color-mix(in oklch, var(--brand-accent) 40%, transparent) 0%,
+      color-mix(in oklch, var(--brand-accent) 9.2%, transparent) 53%,
+      color-mix(in oklch, var(--brand-accent) 2.4%, transparent) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 568.5px at calc(50% - 659.5px) 751.5px,
+      color-mix(in oklch, var(--brand) 16%, transparent) 0%,
+      color-mix(in oklch, var(--brand) 3.68%, transparent) 53%,
+      color-mix(in oklch, var(--brand) 0.96%, transparent) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 568.5px at calc(50% + 659.5px) 110.5px,
+      color-mix(in oklch, var(--brand) 8%, transparent) 0%,
+      color-mix(in oklch, var(--brand) 1.84%, transparent) 53%,
+      color-mix(in oklch, var(--brand) 0.48%, transparent) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 336px at calc(50% - 671px) 1282px,
+      color-mix(in oklch, var(--brand-accent) 60%, transparent) 0%,
+      color-mix(in oklch, var(--brand-accent) 13.8%, transparent) 53%,
+      color-mix(in oklch, var(--brand-accent) 3.6%, transparent) 75%,
+      transparent 100%
+    );
+  background-repeat: no-repeat;
+}
+
+/* Testimonials section background: soft surface with three blurred Figma glows */
+@utility testimonials-glow {
+  background-color: var(--surface-soft);
+  background-image:
+    radial-gradient(
+      circle 568.5px at calc(50% + 690.5px) 327.5px,
+      color-mix(in oklch, var(--brand-accent) 40%, transparent) 0%,
+      color-mix(in oklch, var(--brand-accent) 9.2%, transparent) 53%,
+      color-mix(in oklch, var(--brand-accent) 2.4%, transparent) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 336px at calc(50% + 11px) 198px,
+      color-mix(in oklch, var(--brand-accent) 60%, transparent) 0%,
+      color-mix(in oklch, var(--brand-accent) 13.8%, transparent) 53%,
+      color-mix(in oklch, var(--brand-accent) 3.6%, transparent) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 568.5px at calc(50% - 593.5px) 717.5px,
+      color-mix(in oklch, var(--brand) 24%, transparent) 0%,
+      color-mix(in oklch, var(--brand) 5.52%, transparent) 53%,
+      color-mix(in oklch, var(--brand) 1.44%, transparent) 75%,
+      transparent 100%
+    );
+  background-repeat: no-repeat;
+}
+
+/* Masks an element to an image's alpha; set --tint-mask to url(...) */
+@utility tint-mask {
+  mask-image: var(--tint-mask);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
 }
 
 @utility gradient-text-lime {

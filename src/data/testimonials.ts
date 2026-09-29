@@ -1,12 +1,12 @@
-import type { ComponentType, SVGProps } from "react";
+import type { StaticImageData } from "next/image";
 
-import { Avatar1, Avatar2, Avatar3, Avatar4 } from "@/assets/avatar";
+import { Avatar1, Avatar3, Avatar4 } from "@/assets/avatar";
 
 export type Testimonial = {
   name: string;
   role: string;
   quote: string;
-  avatar: ComponentType<SVGProps<SVGSVGElement>>;
+  avatar: StaticImageData;
 };
 
 export const testimonials: Testimonial[] = [
@@ -18,24 +18,17 @@ export const testimonials: Testimonial[] = [
     avatar: Avatar3,
   },
   {
-    name: "James R.",
-    role: "Product Designer",
+    name: "James L.",
+    role: "Lifelong Learner",
     quote:
-      "The courses are practical and well structured. I picked up new design skills in weeks and applied them straight away at work. The creators clearly know their craft.",
+      "I've tried several online learning platforms, and ByteSpace stands out for its vibrant community and the variety of courses available. The easy navigation and engaging content make it a go-to platform for continuous skill development.",
     avatar: Avatar1,
   },
   {
-    name: "Amara K.",
-    role: "Frontend Developer",
+    name: "Alex B.",
+    role: "Inspired Creator",
     quote:
-      "I love how easy it is to find exactly what I need. The lessons are short, focused, and the community is always ready to help when I get stuck.",
-    avatar: Avatar2,
-  },
-  {
-    name: "David O.",
-    role: "Course Creator",
-    quote:
-      "Publishing on ByteSpace has been a great experience. The tools are simple, the audience is engaged, and I get meaningful feedback from my students.",
+      "As a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It's fulfilling to see my courses making a positive impact on learners globally.",
     avatar: Avatar4,
   },
 ];

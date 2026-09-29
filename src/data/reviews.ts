@@ -1,4 +1,4 @@
-import type { ComponentType, SVGProps } from "react";
+import type { StaticImageData } from "next/image";
 
 import { Avatar1, Avatar2, Avatar3, Avatar4 } from "@/assets/avatar";
 
@@ -6,7 +6,7 @@ export type Review = {
   id: string;
   name: string;
   role: string;
-  avatar: ComponentType<SVGProps<SVGSVGElement>>;
+  avatar: StaticImageData;
   rating: number;
   postedAt: string;
   comment: string;

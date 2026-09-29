@@ -1,4 +1,6 @@
 export { default as ConeLime } from "./cone-lime.png";
+export { default as CourseThumbnail } from "./course-thumbnail.jpg";
+export { default as Girl } from "./girl.png";
 export { default as PyramidWhite } from "./pyramid-white.png";
 export { default as RingLime } from "./ring-lime.png";
 export { default as Student } from "./student.png";

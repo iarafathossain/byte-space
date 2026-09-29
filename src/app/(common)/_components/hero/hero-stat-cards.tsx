@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 
-import { Avatar, AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar";
+import UserAvatar from "@/components/shared/user-avatar";
+import { AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Progress, ProgressLabel, ProgressValue } from "@/components/ui/progress";
 import {
@@ -69,10 +70,8 @@ export function HappyStudentsCard({ className }: HeroCardProps) {
       </div>
 
       <AvatarGroup className="-space-x-4 *:data-[slot=avatar]:ring-card">
-        {avatars.map((AvatarImage, index) => (
-          <Avatar key={index} className="size-10.75 after:hidden">
-            <AvatarImage aria-hidden="true" className="size-full" />
-          </Avatar>
+        {avatars.map((avatar, index) => (
+          <UserAvatar key={index} src={avatar} className="size-10.75" />
         ))}
         <AvatarGroupCount className="size-10.75 bg-brand-accent text-xs leading-normal font-bold text-brand-accent-foreground ring-card">
           {total}

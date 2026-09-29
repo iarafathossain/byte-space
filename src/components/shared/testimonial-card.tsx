@@ -1,4 +1,4 @@
-import { Avatar } from "@/components/ui/avatar";
+import UserAvatar from "@/components/shared/user-avatar";
 import { Card } from "@/components/ui/card";
 import type { Testimonial } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ export default function TestimonialCard({
   testimonial,
   className,
 }: TestimonialCardProps) {
-  const { name, role, quote, avatar: AvatarImage } = testimonial;
+  const { name, role, quote, avatar } = testimonial;
 
   return (
     <Card
@@ -22,9 +22,7 @@ export default function TestimonialCard({
       )}
     >
       <figure className="flex flex-col items-start gap-6">
-        <Avatar className="size-20 after:hidden">
-          <AvatarImage aria-hidden="true" className="size-full" />
-        </Avatar>
+        <UserAvatar src={avatar} className="size-20" />
 
         <figcaption>
           <p className="font-heading text-xl leading-[1.2] font-semibold tracking-[-0.01em]">

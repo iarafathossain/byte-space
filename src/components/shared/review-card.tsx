@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 
-import { Avatar } from "@/components/ui/avatar";
+import UserAvatar from "@/components/shared/user-avatar";
 import { Card } from "@/components/ui/card";
 import type { Review } from "@/data/reviews";
 import { cn, formatTimeAgo } from "@/lib/utils";
@@ -13,7 +13,7 @@ type ReviewCardProps = {
 };
 
 export default function ReviewCard({ review, className }: ReviewCardProps) {
-  const { name, role, avatar: AvatarImage, rating, postedAt, comment } = review;
+  const { name, role, avatar, rating, postedAt, comment } = review;
 
   return (
     <Card
@@ -25,9 +25,7 @@ export default function ReviewCard({ review, className }: ReviewCardProps) {
       <article className="flex flex-col gap-6">
         <header className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Avatar className="size-13 after:hidden">
-              <AvatarImage aria-hidden="true" className="size-full" />
-            </Avatar>
+            <UserAvatar src={avatar} className="size-13" />
             <div>
               <p className="text-lg leading-[1.2] font-medium">{name}</p>
               <p className="text-base leading-6 text-card-foreground/80">
