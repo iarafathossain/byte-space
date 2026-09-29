@@ -16,11 +16,15 @@ import CoursePagination from "./_components/course-pagination";
 import CourseSearchForm from "./_components/course-search-form";
 
 export const metadata: Metadata = {
-  title: "Courses | ByteSpace",
-  description: "Find your next course across design, development, business and more.",
+  title: "Courses",
+  alternates: { canonical: "/courses" },
+  description:
+    "Find your next course across design, development, business and more.",
 };
 
-export default async function CoursesPage({ searchParams }: PageProps<"/courses">) {
+export default async function CoursesPage({
+  searchParams,
+}: PageProps<"/courses">) {
   const filters = parseCourseFilters(await searchParams);
   const { items, currentPage, totalPages } = paginate(
     filterCourses(courses, filters),
@@ -64,7 +68,10 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
                 </p>
                 <p className="text-base leading-[1.6] text-muted-foreground">
                   Try a different search or{" "}
-                  <Link href="/courses" className="text-primary hover:underline">
+                  <Link
+                    href="/courses"
+                    className="text-primary hover:underline"
+                  >
                     clear all filters
                   </Link>
                   .

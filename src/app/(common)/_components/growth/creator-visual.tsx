@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 import { Girl, ZigzagWhiteSm } from "@/assets/images/hero";
+import { HappyStudentsCard } from "@/components/shared/stat-cards";
+import TintedOrnament from "@/components/shared/tinted-ornament";
 import { revenueStats } from "@/data/growth";
 
-import { HappyStudentsCard } from "../hero/hero-stat-cards";
 import RevenueCard from "./revenue-card";
-import TintedOrnament from "../tinted-ornament";
 
 // Fixed 541×596 Figma frame, scaled down on phones (wrapper height tracks it)
 export default function CreatorVisual() {

@@ -8,8 +8,7 @@ import {
   ZigzagWhiteLg,
   ZigzagWhiteSm,
 } from "@/assets/images/hero";
-
-import TintedOrnament from "../tinted-ornament";
+import TintedOrnament from "@/components/shared/tinted-ornament";
 
 // Positions are on the 1440px Figma frame, anchored to the section center
 export default function CtaOrnaments() {

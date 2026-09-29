@@ -6,7 +6,7 @@ import {
   CourseHighlightCard,
   HappyStudentsCard,
   LearningProgressCard,
-} from "./hero-stat-cards";
+} from "@/components/shared/stat-cards";
 
 /*
  * The visual is laid out on a fixed 1440×512 stage (the lower half of the

@@ -17,9 +17,29 @@ export async function generateMetadata({
 }: PageProps<"/courses/[slug]">): Promise<Metadata> {
   const course = getCourseDetails((await params).slug);
 
-  return course
-    ? { title: `${course.title} | ByteSpace`, description: course.subtitle }
-    : {};
+  if (!course) return {};
+
+  const url = `/courses/${course.slug}`;
+
+  return {
+    title: course.title,
+    description: course.subtitle,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      url,
+      title: course.title,
+      description: course.subtitle,
+      images: [
+        {
+          url: course.thumbnail.src,
+          width: 720,
+          height: 479,
+          alt: course.title,
+        },
+      ],
+    },
+  };
 }
 
 export default async function CourseDetailsPage({

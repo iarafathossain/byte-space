@@ -53,27 +53,60 @@ export function LearningProgressCard({ className }: HeroCardProps) {
   );
 }
 
-export function HappyStudentsCard({ className }: HeroCardProps) {
+type HappyStudentsCardProps = HeroCardProps & {
+  // "lime" is the Electric Lime card used on the auth pages
+  tone?: "light" | "lime";
+};
+
+export function HappyStudentsCard({ className, tone = "light" }: HappyStudentsCardProps) {
   const { title, rating, reviews, total, avatars } = heroHappyStudents;
+  const isLime = tone === "lime";
 
   return (
-    <Card className={cn(cardClassName, className)}>
+    <Card
+      className={cn(
+        cardClassName,
+        isLime && "bg-brand-accent text-brand-accent-foreground",
+        className,
+      )}
+    >
       <div>
         <CardTitle className={cardTitleClassName}>{title}</CardTitle>
         <p className="flex items-center text-xs leading-[1.6]">
           {rating}
           <span className="sr-only"> out of 5 stars from</span>
-          <span className="ml-0.5 text-muted-foreground">({reviews})</span>
+          <span className={cn("ml-0.5", isLime ? "opacity-70" : "text-muted-foreground")}>
+            ({reviews})
+          </span>
           <span className="sr-only"> reviews</span>
-          <Star className="size-4 fill-brand-accent text-brand-accent" />
+          <Star
+            className={cn(
+              "size-4",
+              isLime ? "fill-primary text-primary" : "fill-brand-accent text-brand-accent",
+            )}
+          />
         </p>
       </div>
 
-      <AvatarGroup className="-space-x-4 *:data-[slot=avatar]:ring-card">
+      <AvatarGroup
+        className={cn(
+          "-space-x-4",
+          isLime
+            ? "*:data-[slot=avatar]:ring-brand-accent"
+            : "*:data-[slot=avatar]:ring-card",
+        )}
+      >
         {avatars.map((avatar, index) => (
           <UserAvatar key={index} src={avatar} className="size-10.75" />
         ))}
-        <AvatarGroupCount className="size-10.75 bg-brand-accent text-xs leading-normal font-bold text-brand-accent-foreground ring-card">
+        <AvatarGroupCount
+          className={cn(
+            "size-10.75 text-xs leading-normal font-bold",
+            isLime
+              ? "bg-brand-accent-foreground text-brand-foreground ring-brand-accent"
+              : "bg-brand-accent text-brand-accent-foreground ring-card",
+          )}
+        >
           {total}
         </AvatarGroupCount>
       </AvatarGroup>

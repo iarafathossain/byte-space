@@ -2,10 +2,9 @@ import Image from "next/image";
 
 import { Student, ZigzagWhiteLg } from "@/assets/images/hero";
 import CourseCard from "@/components/shared/course-card";
+import { LearningProgressCard } from "@/components/shared/stat-cards";
+import TintedOrnament from "@/components/shared/tinted-ornament";
 import { courses } from "@/data/courses";
-
-import { LearningProgressCard } from "../hero/hero-stat-cards";
-import TintedOrnament from "../tinted-ornament";
 
 // Fixed 621×552 Figma frame, scaled down on phones (wrapper height tracks it)
 export default function LearnerVisual() {
