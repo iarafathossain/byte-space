@@ -2,6 +2,8 @@
 
 A learning platform (LMS) frontend where learners discover courses and creators publish them. Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4** and **shadcn/ui** (Base UI primitives).
 
+**Live demo:** [bytespace.iarafathossain.me](https://bytespace.iarafathossain.me/)
+
 ## Getting Started
 
 **Requirements:** Node.js 20+ and [pnpm](https://pnpm.io) 11.
@@ -19,7 +21,7 @@ For production, set the public site URL (used for canonical and social-share lin
 
 ```bash
 # .env.local
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://bytespace.iarafathossain.me
 ```
 
 | Script           | Description                |
