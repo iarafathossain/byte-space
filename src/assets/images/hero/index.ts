@@ -1,0 +1,8 @@
+export { default as ConeLime } from "./cone-lime.png";
+export { default as PyramidWhite } from "./pyramid-white.png";
+export { default as RingLime } from "./ring-lime.png";
+export { default as Student } from "./student.png";
+export { default as TorusWhite } from "./torus-white.png";
+export { default as ZigzagLime } from "./zigzag-lime.png";
+export { default as ZigzagWhiteLg } from "./zigzag-white-lg.png";
+export { default as ZigzagWhiteSm } from "./zigzag-white-sm.png";

@@ -9,13 +9,15 @@ const nextConfig: NextConfig = {
           {
             loader: "@svgr/webpack",
             options: {
-              // Keep viewBox so SVGs scale with CSS width/height classes
               svgoConfig: {
                 plugins: [
                   {
                     name: "preset-default",
+                    // Keep viewBox so SVGs scale with CSS width/height classes
                     params: { overrides: { removeViewBox: false } },
                   },
+                  // Prefix ids per file so inlined SVGs don't collide on a page
+                  "prefixIds",
                 ],
               },
             },

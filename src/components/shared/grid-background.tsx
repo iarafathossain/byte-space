@@ -2,15 +2,18 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
-type GridBackgroundProps = ComponentProps<"div">;
+type GridBackgroundProps = ComponentProps<"div"> & {
+  as?: "div" | "section" | "header" | "main";
+};
 
 export default function GridBackground({
+  as: Component = "div",
   className,
   children,
   ...props
 }: GridBackgroundProps) {
   return (
-    <div
+    <Component
       className={cn(
         "pattern-grid relative isolate overflow-hidden bg-brand text-brand-foreground",
         className,
@@ -18,6 +21,6 @@ export default function GridBackground({
       {...props}
     >
       {children}
-    </div>
+    </Component>
   );
 }

@@ -61,11 +61,6 @@ Use `_components/` for route-specific components. Put reusable components in `sr
 - Never use shadows; use borders instead.
 - All UI must be responsive and mobile-friendly.
 - Avoid unnecessary complexity.
-- For every Next.js `<Image>`, use:
-
-  ```tsx
-  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 200px";
-  ```
 
 ## Styling & Design System
 

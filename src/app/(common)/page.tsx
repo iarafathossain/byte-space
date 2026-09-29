@@ -1,8 +1,9 @@
-export default function Home() {
+import HeroSection from "./_components/hero/hero-section";
+
+export default function HomePage() {
   return (
-    <div>
-      <h1>Home</h1>
-      <p className="rounded">i am para</p>
-    </div>
+    <main>
+      <HeroSection />
+    </main>
   );
 }
