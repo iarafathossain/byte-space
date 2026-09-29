@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ByteSpace
+
+A learning platform (LMS) frontend where learners discover courses and creators publish them. Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4** and **shadcn/ui** (Base UI primitives).
 
 ## Getting Started
 
-First, run the development server:
+**Requirements:** Node.js 20+ and [pnpm](https://pnpm.io) 11.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/iarafathossain/byte-space.git
+cd byte-space
+pnpm install
+pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For production, set the public site URL (used for canonical and social-share links):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# .env.local
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
 
-## Learn More
+| Script           | Description                |
+| ---------------- | -------------------------- |
+| `pnpm run dev`   | Start the dev server       |
+| `pnpm run build` | Create a production build  |
+| `pnpm run start` | Serve the production build |
+| `pnpm run lint`  | Run ESLint                 |
 
-To learn more about Next.js, take a look at the following resources:
+## Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Route                  | Description                                                 |
+| ---------------------- | ----------------------------------------------------------- |
+| `/`                    | Landing page (hero, courses, learning paths, testimonials…) |
+| `/courses`             | Course catalog with search, filters, sorting and pagination |
+| `/courses/[slug]`      | Course details with About / Lessons / Reviews tabs          |
+| `/creators`            | Searchable creator directory                                |
+| `/creators/[slug]`     | Creator profile with their filterable courses               |
+| `/sign-in`, `/sign-up` | Auth pages with Zod-validated forms                         |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```text
+src/
+├── app/
+│   ├── (auth)/            # Sign-in / sign-up (no site header or footer)
+│   ├── (common)/          # Public pages (shared header + footer layout)
+│   ├── layout.tsx         # Root layout: fonts, SEO metadata, top loader
+│   ├── not-found.tsx      # Custom 404
+│   └── globals.css        # Design tokens (OKLCH), utilities, gradients
+├── assets/                # SVG icons (via SVGR) and images
+├── components/
+│   ├── ui/                # shadcn/ui primitives — generated, not edited by hand
+│   ├── layout/            # Header, footer, mobile navigation
+│   └── shared/            # Reusable feature components (cards, filters, empty state…)
+├── data/                  # Typed sample data (courses, creators, reviews, navigation…)
+└── lib/
+    ├── course-filters.ts  # URL filter parsing, filtering, sorting, pagination
+    ├── validations/       # Zod schemas
+    └── utils.ts           # cn(), formatTimeAgo()
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **App Router with route groups.** `(common)` and `(auth)` share URLs at the root but use different layouts, so auth pages render full-screen without the site header.
+- **Server Components by default.** Pages and most components render on the server. Client Components (`"use client"`) are small, interactive islands: forms, dropdowns, tabs, the share and follow buttons.
+- **URL as state.** Course filters (`q`, `level`, `category`, `price`, `sort`, `page`) live in search params, validated with Zod. Filtered views are shareable and bookmarkable, and the back button works.
+- **Static generation where possible.** Course detail pages are pre-rendered with `generateStaticParams`. Listing pages that read search params render on demand.
+- **Typed data layer.** All content comes from `src/data`, keeping UI components presentational and making the swap to a real API straightforward.
+- **Optimized assets.** Images use `next/image` with static imports; Satoshi (local) and Poppins (Google) load through `next/font` as CSS variables.
+- **SEO.** Root metadata with a title template, Open Graph and Twitter cards, and robots rules; each page sets its own title and canonical URL.
+
+## Patterns
+
+- **Composition over duplication.** Shared building blocks such as `SubPageHeader`, `SectionHeading`, `CourseResults`, `EmptyState` and `GridBackground` are composed by pages instead of repeating markup.
+- **Variant-driven components.** One component, several looks: `AppButton` (`variant="brand"`, link or button), `AuthForm` (`variant="sign-in" | "sign-up"`), `HappyStudentsCard` (`tone="lime"`).
+- **Scoped reuse.** `CourseFilterBar` and `CoursePagination` take a `scope` (base path plus default category), so the same filters drive both `/courses` and creator profiles.
+- **Accessible by default.** Semantic landmarks, stretched-link cards, `aria-current` / `aria-pressed` states, screen-reader labels, and keyboard-friendly shadcn primitives.
+
+## Coding Conventions
+
+- **Files:** kebab-case (`course-card.tsx`); route-only components go in a `_components/` folder next to the route, reusable ones in `src/components/`.
+- **Components:** React function components with typed props; one responsibility per component.
+- **Styling:** Tailwind utility classes only, merged with `cn()`. No inline CSS in components; tokens, custom utilities and gradients are defined in `globals.css`.
+- **Design system:** OKLCH color tokens with dark-mode values, 1.5rem radius for surfaces, borders instead of shadows, mobile-first responsive layouts.
+- **Forms:** Zod schemas plus shadcn `Field`, `FieldLabel` and `FieldError`.
+- **Navigation:** `next/link` styled with `cn()` and shadcn `buttonVariants`.
+- **Icons:** Lucide React; brand and design icons are SVGs in `src/assets/icons`.
+- **Imports:** external packages first, then `@/` aliases, then relative imports.
