@@ -74,11 +74,18 @@ export default function CourseSearchForm({ filters }: CourseSearchFormProps) {
       >
         <SelectTrigger
           aria-label="Search in"
-          className="h-12! shrink-0 gap-2 rounded-full border-0 bg-brand-accent px-4 text-lg leading-[1.2] font-medium text-brand-accent-foreground hover:bg-brand-accent/90 sm:w-36.75 sm:justify-center sm:px-6 dark:bg-brand-accent dark:hover:bg-brand-accent/90 [&_svg]:size-6! [&_svg]:text-brand-accent-foreground!"
+          className="h-12! shrink-0 gap-2 rounded-full border-0 bg-brand-accent px-4 text-lg leading-[1.2] font-medium text-brand-accent-foreground hover:bg-brand-accent/90 sm:min-w-36.75 sm:justify-center sm:px-6 dark:bg-brand-accent dark:hover:bg-brand-accent/90 [&_svg]:size-6! [&_svg]:text-brand-accent-foreground!"
         >
           <SelectValue />
         </SelectTrigger>
-        <SelectContent className="rounded-2xl border border-border shadow-none ring-0">
+        {/* Open as a dropdown below the button instead of over it */}
+        <SelectContent
+          alignItemWithTrigger={false}
+          side="bottom"
+          align="end"
+          sideOffset={8}
+          className="rounded-2xl border border-border p-1 shadow-none ring-0"
+        >
           {searchScopes.map(({ value, label }) => (
             <SelectItem key={value} value={value} className="text-base">
               {label}

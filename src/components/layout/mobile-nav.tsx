@@ -30,7 +30,11 @@ export default function MobileNav() {
         <Menu className="size-6" />
       </SheetTrigger>
 
-      <SheetContent side="right" className="border-l border-brand-foreground/20 bg-brand">
+      {/* The built-in close button is the panel's direct child; keep it white on the blue panel */}
+      <SheetContent
+        side="right"
+        className="border-l border-brand-foreground/20 bg-brand text-brand-foreground [&>button]:text-brand-foreground [&>button:hover]:bg-brand-foreground/10 [&>button:hover]:text-brand-foreground"
+      >
         <SheetHeader>
           <SheetTitle className="text-brand-foreground">Menu</SheetTitle>
         </SheetHeader>
