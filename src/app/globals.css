@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "Satoshi";
-  src: url("/fonts/Satoshi-Regular.otf") format("woff2");
+  src: url("/fonts/Satoshi-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -15,9 +15,18 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-poppins), sans-serif;
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-muted-foreground: var(--brand-muted-foreground);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-foreground: var(--brand-accent-foreground);
+  --color-grid-line: var(--grid-line);
+  --color-footer: var(--footer);
+  --color-footer-foreground: var(--footer-foreground);
+  --color-footer-border: var(--footer-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -91,9 +100,26 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Brand surface (Persian Blue / Electric Lime / Shuttle Gray) */
+  --brand: oklch(46.23% 0.2527 263.68);
+  --brand-foreground: oklch(97.04% 0.0013 286.38);
+  --brand-muted-foreground: oklch(92.47% 0.0029 264.54);
+  --brand-accent: oklch(92.77% 0.2161 120.6);
+  --brand-accent-foreground: oklch(26.46% 0.0057 271.2);
+  --grid-line: oklch(1 0 0 / 12%);
+  --grid-size: 60px;
+  /* Footer (White / Shuttle Gray 950 / Shuttle Gray 200) */
+  --footer: oklch(1 0 0);
+  --footer-foreground: oklch(26.46% 0.0057 271.2);
+  --footer-border: oklch(85.69% 0.0047 258.33);
 }
 
 .dark {
+  --brand: oklch(26.69% 0.1358 263.1);
+  --grid-line: oklch(1 0 0 / 8%);
+  --footer: oklch(21.32% 0.0042 264.48);
+  --footer-foreground: oklch(97.04% 0.0013 286.38);
+  --footer-border: oklch(35.32% 0.0087 276.91);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -137,6 +163,47 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+}
+
+/*
+ * 2px grid lines, centered so a column line always sits at the horizontal center.
+ * Not prefixed with `bg-`/`text-` so cn()'s tailwind-merge never drops it as a color conflict.
+ */
+@utility pattern-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      transparent calc(50% - 1px),
+      var(--grid-line) calc(50% - 1px),
+      var(--grid-line) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    ),
+    linear-gradient(
+      to bottom,
+      transparent calc(50% - 1px),
+      var(--grid-line) calc(50% - 1px),
+      var(--grid-line) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: center calc(var(--grid-size) / -2);
+
+  @media (width >= 48rem) {
+    --grid-size: 120px;
+  }
+}
+
+@utility gradient-text-lime {
+  background-image: linear-gradient(
+    180deg,
+    var(--brand-accent) 0%,
+    color-mix(in oklch, var(--brand-accent) 96%, transparent) 25%,
+    color-mix(in oklch, var(--brand-accent) 81%, transparent) 50.5%,
+    color-mix(in oklch, var(--brand-accent) 61%, transparent) 68%,
+    oklch(1 0 0 / 0) 100%
+  );
+  background-clip: text;
+  color: transparent;
 }
 
 @layer base {

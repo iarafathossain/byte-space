@@ -1,10 +1,10 @@
-<svg width="218" height="372" viewBox="0 0 218 372" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 218 372" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="371.822" height="371.828" fill="url(#pattern0_46_73)"/>
 <mask id="mask0_46_73" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="372" height="372">
 <rect width="371.822" height="371.828" fill="url(#pattern1_46_73)"/>
 </mask>
 <g mask="url(#mask0_46_73)">
-<rect x="-1081.24" width="2500" height="371.828" fill="#F5F5F6"/>
+<rect x="-1081.24" width="2500" height="371.828" fill="currentColor"/>
 </g>
 <defs>
 <pattern id="pattern0_46_73" patternContentUnits="objectBoundingBox" width="1" height="1">
