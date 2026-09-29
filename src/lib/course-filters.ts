@@ -44,15 +44,29 @@ export const categoryTabs: FilterOption[] = [
 ];
 
 const priceRanges = [
-  { value: "under-30", label: "Under $30", matches: (price: number) => price < 30 },
-  { value: "30-49", label: "$30 – $49", matches: (price: number) => price >= 30 && price < 50 },
-  { value: "50-plus", label: "$50 & above", matches: (price: number) => price >= 50 },
+  {
+    value: "under-30",
+    label: "Under $30",
+    matches: (price: number) => price < 30,
+  },
+  {
+    value: "30-49",
+    label: "$30 – $49",
+    matches: (price: number) => price >= 30 && price < 50,
+  },
+  {
+    value: "50-plus",
+    label: "$50 & above",
+    matches: (price: number) => price >= 50,
+  },
 ];
 
-export const priceOptions: FilterOption[] = priceRanges.map(({ value, label }) => ({
-  value,
-  label,
-}));
+export const priceOptions: FilterOption[] = priceRanges.map(
+  ({ value, label }) => ({
+    value,
+    label,
+  }),
+);
 
 const sorters: Record<string, ((a: Course, b: Course) => number) | null> = {
   relevant: null,
@@ -83,26 +97,45 @@ const courseFiltersSchema = z.object({
 
 export type CourseFilters = z.infer<typeof courseFiltersSchema>;
 
+// Where a course listing lives and which category it shows by default
+export type FilterScope = { basePath: string; defaultCategory: string };
+
+export const coursesScope: FilterScope = {
+  basePath: "/courses",
+  defaultCategory: FEATURED,
+};
+
 type SearchParams = Record<string, string | string[] | undefined>;
 
-export function parseCourseFilters(searchParams: SearchParams): CourseFilters {
+export function parseCourseFilters(
+  searchParams: SearchParams,
+  scope: FilterScope = coursesScope,
+): CourseFilters {
   const first = (value: string | string[] | undefined) =>
     Array.isArray(value) ? value[0] : value;
 
-  return courseFiltersSchema.parse({
-    q: first(searchParams.q),
-    level: first(searchParams.level),
-    category: first(searchParams.category),
-    price: first(searchParams.price),
-    sort: first(searchParams.sort),
-    page: first(searchParams.page),
-  });
+  return courseFiltersSchema
+    .extend({
+      category: z.enum(valuesOf(categoryOptions)).catch(scope.defaultCategory),
+    })
+    .parse({
+      q: first(searchParams.q),
+      level: first(searchParams.level),
+      category: first(searchParams.category),
+      price: first(searchParams.price),
+      sort: first(searchParams.sort),
+      page: first(searchParams.page),
+    });
 }
 
 export const COURSES_PER_PAGE = 6;
 
 // Returns one page of results; an out-of-range page is clamped to the last page
-export function paginate<T>(items: T[], page: number, perPage = COURSES_PER_PAGE) {
+export function paginate<T>(
+  items: T[],
+  page: number,
+  perPage = COURSES_PER_PAGE,
+) {
   const totalPages = Math.max(1, Math.ceil(items.length / perPage));
   const currentPage = Math.min(page, totalPages);
   const start = (currentPage - 1) * perPage;
@@ -140,7 +173,8 @@ export function filterCourses(list: Course[], filters: CourseFilters) {
       [course.title, course.creator.name, course.category].some((field) =>
         field.toLowerCase().includes(query),
       );
-    const matchesLevel = !filters.level || toSlug(course.level) === filters.level;
+    const matchesLevel =
+      !filters.level || toSlug(course.level) === filters.level;
     const matchesCategory =
       filters.category === ALL_CATEGORIES ||
       (filters.category === FEATURED
@@ -155,27 +189,31 @@ export function filterCourses(list: Course[], filters: CourseFilters) {
   return sorter ? results.toSorted(sorter) : results;
 }
 
-const defaults: Partial<CourseFilters> = {
-  q: "",
-  category: FEATURED,
-  sort: "relevant",
-  page: 1,
-};
-
-// Builds a /courses URL from the current filters plus changes, omitting defaults.
+// Builds a listing URL from the current filters plus changes, omitting defaults.
 // Changing any filter other than `page` resets to the first page.
 export function buildCoursesHref(
   filters: CourseFilters,
   changes: Partial<CourseFilters> = {},
+  scope: FilterScope = coursesScope,
 ) {
+  const defaults: Partial<CourseFilters> = {
+    q: "",
+    category: scope.defaultCategory,
+    sort: "relevant",
+    page: 1,
+  };
   const params = new URLSearchParams();
 
-  for (const [key, value] of Object.entries({ ...filters, page: 1, ...changes })) {
+  for (const [key, value] of Object.entries({
+    ...filters,
+    page: 1,
+    ...changes,
+  })) {
     if (value && value !== defaults[key as keyof CourseFilters]) {
       params.set(key, String(value));
     }
   }
 
   const query = params.toString();
-  return query ? `/courses?${query}` : "/courses";
+  return query ? `${scope.basePath}?${query}` : scope.basePath;
 }

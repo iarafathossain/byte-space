@@ -56,7 +56,6 @@ Use `_components/` for route-specific components. Put reusable components in `sr
 - Build reusable and composable components.
 - Follow Next.js/React best practices.
 - Use **Lucide React** for icons only.
-- Icons must always appear **left of text**.
 - Use `<Link>` for navigation with `cn()` and Shadcn button variants.
 - Never use shadows; use borders instead.
 - All UI must be responsive and mobile-friendly.

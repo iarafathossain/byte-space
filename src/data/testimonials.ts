@@ -28,7 +28,7 @@ export const testimonials: Testimonial[] = [
     name: "Alex B.",
     role: "Inspired Creator",
     quote:
-      "As a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It's fulfilling to see my courses making a positive impact on learners globally.",
+      "As a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It's fulfilling to see my courses making a positive impact on learners globally skill development for smarty pants.",
     avatar: Avatar4,
   },
 ];

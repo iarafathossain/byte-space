@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import CourseCard from "@/components/shared/course-card";
+import CourseFilterBar from "@/components/shared/course-filter-bar";
+import CourseResults from "@/components/shared/course-results";
 import SubPageHeader from "@/components/shared/sub-page-header";
 import { courses } from "@/data/courses";
 import {
@@ -11,8 +11,6 @@ import {
 } from "@/lib/course-filters";
 
 import CategoryTabs from "./_components/category-tabs";
-import CourseFilterBar from "./_components/course-filter-bar";
-import CoursePagination from "./_components/course-pagination";
 import CourseSearchForm from "./_components/course-search-form";
 
 export const metadata: Metadata = {
@@ -46,38 +44,12 @@ export default async function CoursesPage({
           </div>
 
           <div className="mt-12 lg:mt-20">
-            {items.length > 0 ? (
-              <div className="flex flex-col gap-12 lg:gap-20">
-                <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-                  {items.map((course) => (
-                    <li key={course.slug}>
-                      <CourseCard course={course} className="h-full" />
-                    </li>
-                  ))}
-                </ul>
-                <CoursePagination
-                  filters={filters}
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                />
-              </div>
-            ) : (
-              <div className="flex flex-col items-center gap-2 py-16 text-center">
-                <p className="font-heading text-xl font-semibold text-foreground">
-                  No courses match your filters
-                </p>
-                <p className="text-base leading-[1.6] text-muted-foreground">
-                  Try a different search or{" "}
-                  <Link
-                    href="/courses"
-                    className="text-primary hover:underline"
-                  >
-                    clear all filters
-                  </Link>
-                  .
-                </p>
-              </div>
-            )}
+            <CourseResults
+              courses={items}
+              filters={filters}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
           </div>
         </div>
       </section>

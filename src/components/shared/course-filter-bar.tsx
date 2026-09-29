@@ -25,6 +25,7 @@ import {
   sortOptions,
   type CourseFilters,
   type FilterOption,
+  type FilterScope,
 } from "@/lib/course-filters";
 import { cn } from "@/lib/utils";
 
@@ -70,7 +71,7 @@ function FilterMenu({
         }
       >
         <Icon className="text-foreground" />
-        {showValue || isActive ? selected?.label ?? label : label}
+        {showValue || isActive ? (selected?.label ?? label) : label}
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
@@ -83,7 +84,11 @@ function FilterMenu({
         >
           {/* Radio items keep the menu open by default; close it once a choice is made */}
           {anyLabel && (
-            <DropdownMenuRadioItem value={ANY} closeOnClick className="py-2 text-base">
+            <DropdownMenuRadioItem
+              value={ANY}
+              closeOnClick
+              className="py-2 text-base"
+            >
               {anyLabel}
             </DropdownMenuRadioItem>
           )}
@@ -105,13 +110,18 @@ function FilterMenu({
 
 type CourseFilterBarProps = {
   filters: CourseFilters;
+  // Which listing the filters apply to; defaults to /courses
+  scope?: FilterScope;
 };
 
-export default function CourseFilterBar({ filters }: CourseFilterBarProps) {
+export default function CourseFilterBar({
+  filters,
+  scope,
+}: CourseFilterBarProps) {
   const router = useRouter();
 
   const update = (changes: Partial<CourseFilters>) =>
-    router.push(buildCoursesHref(filters, changes), { scroll: false });
+    router.push(buildCoursesHref(filters, changes, scope), { scroll: false });
 
   return (
     <div className="flex flex-wrap items-start justify-between gap-3">

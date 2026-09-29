@@ -12,6 +12,7 @@ import {
   buildCoursesHref,
   getPageNumbers,
   type CourseFilters,
+  type FilterScope,
 } from "@/lib/course-filters";
 import { cn } from "@/lib/utils";
 
@@ -28,16 +29,19 @@ type CoursePaginationProps = {
   filters: CourseFilters;
   currentPage: number;
   totalPages: number;
+  // Which listing the pages belong to; defaults to /courses
+  scope?: FilterScope;
 };
 
 export default function CoursePagination({
   filters,
   currentPage,
   totalPages,
+  scope,
 }: CoursePaginationProps) {
   if (totalPages <= 1) return null;
 
-  const hrefFor = (page: number) => buildCoursesHref(filters, { page });
+  const hrefFor = (page: number) => buildCoursesHref(filters, { page }, scope);
   const hasPrevious = currentPage > 1;
   const hasNext = currentPage < totalPages;
 
@@ -46,18 +50,28 @@ export default function CoursePagination({
       <PaginationContent className="gap-3 sm:gap-6">
         <PaginationItem>
           {hasPrevious ? (
-            <Link href={hrefFor(currentPage - 1)} aria-label="Previous page" className={arrowClassName}>
+            <Link
+              href={hrefFor(currentPage - 1)}
+              aria-label="Previous page"
+              className={arrowClassName}
+            >
               <ChevronLeft />
             </Link>
           ) : (
-            <span aria-disabled="true" aria-label="Previous page" className={cn(arrowClassName, disabledArrowClassName)}>
+            <span
+              aria-disabled="true"
+              aria-label="Previous page"
+              className={cn(arrowClassName, disabledArrowClassName)}
+            >
               <ChevronLeft />
             </span>
           )}
         </PaginationItem>
 
         {getPageNumbers(currentPage, totalPages).map((page, index) => (
-          <PaginationItem key={page === "ellipsis" ? `ellipsis-${index}` : page}>
+          <PaginationItem
+            key={page === "ellipsis" ? `ellipsis-${index}` : page}
+          >
             {page === "ellipsis" ? (
               <PaginationEllipsis className="h-12 text-foreground/60" />
             ) : (
@@ -66,7 +80,10 @@ export default function CoursePagination({
                 aria-label={`Page ${page}`}
                 aria-current={page === currentPage ? "page" : undefined}
                 // The design shows the current page muted
-                className={cn(pageClassName, page === currentPage && "pointer-events-none text-border")}
+                className={cn(
+                  pageClassName,
+                  page === currentPage && "pointer-events-none text-border",
+                )}
               >
                 {page}
               </Link>
@@ -76,11 +93,19 @@ export default function CoursePagination({
 
         <PaginationItem>
           {hasNext ? (
-            <Link href={hrefFor(currentPage + 1)} aria-label="Next page" className={arrowClassName}>
+            <Link
+              href={hrefFor(currentPage + 1)}
+              aria-label="Next page"
+              className={arrowClassName}
+            >
               <ChevronRight />
             </Link>
           ) : (
-            <span aria-disabled="true" aria-label="Next page" className={cn(arrowClassName, disabledArrowClassName)}>
+            <span
+              aria-disabled="true"
+              aria-label="Next page"
+              className={cn(arrowClassName, disabledArrowClassName)}
+            >
               <ChevronRight />
             </span>
           )}
