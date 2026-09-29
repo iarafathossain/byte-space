@@ -1,8 +1,8 @@
 import GridBackground from "@/components/shared/grid-background";
+import SearchForm from "@/components/shared/search-form";
 import { heroContent } from "@/data/hero";
 
 import HeroOrnaments from "./hero-ornaments";
-import HeroSearchForm from "./hero-search-form";
 import HeroVisual from "./hero-visual";
 
 export default function HeroSection() {
@@ -22,7 +22,12 @@ export default function HeroSection() {
           </p>
         </div>
 
-        <HeroSearchForm />
+        <SearchForm
+          action="/courses"
+          label="Search courses"
+          placeholder={heroContent.searchPlaceholder}
+          className="max-w-145.25"
+        />
       </div>
 
       <HeroVisual />

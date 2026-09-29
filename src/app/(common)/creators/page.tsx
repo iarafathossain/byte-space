@@ -7,10 +7,9 @@ import {
   EmptyState,
   emptyStateActionClassName,
 } from "@/components/shared/empty-state";
+import SearchForm from "@/components/shared/search-form";
 import SubPageHeader from "@/components/shared/sub-page-header";
 import { creators } from "@/data/creators";
-
-import CreatorSearchForm from "./_components/creator-search-form";
 
 export const metadata: Metadata = {
   title: "Creators",
@@ -32,7 +31,12 @@ export default async function CreatorsPage({
   return (
     <main>
       <SubPageHeader title="Meet Our Creators">
-        <CreatorSearchForm query={query} />
+        <SearchForm
+          action="/creators"
+          label="Search creators"
+          placeholder="Search creators"
+          defaultQuery={query}
+        />
       </SubPageHeader>
 
       <section aria-label="Creators" className="bg-background">
