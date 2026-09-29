@@ -1,4 +1,11 @@
-export { default as Angle } from "./angle.svg";
-export { default as Circle } from "./circle.svg";
-export { default as Pipe } from "./pipe.svg";
-export { default as Snake } from "./snake.svg";
+export { default as BusinessIcon } from "./business.svg";
+export { default as DesignIcon } from "./design.svg";
+export { default as DevelopmentIcon } from "./development.svg";
+export { default as FacebookIcon } from "./facebook.svg";
+export { default as GoogleIcon } from "./google.svg";
+export { default as ItSoftwareIcon } from "./it-software.svg";
+export { default as LogoBlack } from "./logo-black.svg";
+export { default as LogoIcon } from "./logo-icon.svg";
+export { default as LogoWhite } from "./logo-white.svg";
+export { default as MarketingIcon } from "./marketing.svg";
+export { default as PhotographyIcon } from "./photography.svg";
