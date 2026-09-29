@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BookOpen } from "lucide-react";
 
 import CourseFilterBar from "@/components/shared/course-filter-bar";
 import CourseResults from "@/components/shared/course-results";
+import {
+  EmptyState,
+  emptyStateActionClassName,
+} from "@/components/shared/empty-state";
 import { getCreator, getCreatorCourses, getCreatorHref } from "@/data/creators";
 import {
   ALL_CATEGORIES,
@@ -70,12 +75,16 @@ export default async function CreatorProfilePage({
               </div>
             </>
           ) : (
-            <p className="py-16 text-center text-base leading-[1.6] text-muted-foreground">
-              {creator.name} hasn&rsquo;t published any courses yet.{" "}
-              <Link href="/courses" className="text-primary hover:underline">
-                Browse all courses
-              </Link>
-            </p>
+            <EmptyState
+              icon={BookOpen}
+              title="No courses yet"
+              subtitle={`${creator.name} hasn't published any courses yet. Check back soon!`}
+              action={
+                <Link href="/courses" className={emptyStateActionClassName}>
+                  Browse all courses
+                </Link>
+              }
+            />
           )}
         </div>
       </section>

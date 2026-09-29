@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { MessageSquareText, Star } from "lucide-react";
 
+import {
+  EmptyState,
+  emptyStateActionClassName,
+} from "@/components/shared/empty-state";
 import ReviewCard from "@/components/shared/review-card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { reviews } from "@/data/reviews";
@@ -16,7 +20,9 @@ export default function ReviewList() {
   const visibleReviews =
     activeFilter === ALL
       ? reviews
-      : reviews.filter((review) => Math.round(review.rating) === Number(activeFilter));
+      : reviews.filter(
+          (review) => Math.round(review.rating) === Number(activeFilter),
+        );
 
   return (
     <div className="flex flex-col gap-6">
@@ -55,9 +61,20 @@ export default function ReviewList() {
           ))}
         </ul>
       ) : (
-        <p className="py-10 text-center text-base leading-[1.6] text-muted-foreground">
-          No {activeFilter}-star reviews yet.
-        </p>
+        <EmptyState
+          icon={MessageSquareText}
+          title={`No ${activeFilter}-star reviews yet`}
+          subtitle="Be the first to share your experience with this course."
+          action={
+            <button
+              type="button"
+              onClick={() => setActiveFilter(ALL)}
+              className={emptyStateActionClassName}
+            >
+              Show all reviews
+            </button>
+          }
+        />
       )}
     </div>
   );

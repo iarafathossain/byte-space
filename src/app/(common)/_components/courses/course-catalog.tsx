@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { BookOpen, Plus } from "lucide-react";
 
 import CourseCard from "@/components/shared/course-card";
+import {
+  EmptyState,
+  emptyStateActionClassName,
+} from "@/components/shared/empty-state";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { courseCategories, courses } from "@/data/courses";
 
@@ -60,12 +64,16 @@ export default function CourseCatalog() {
           ))}
         </ul>
       ) : (
-        <p className="py-10 text-center text-lg leading-[1.6] text-muted-foreground">
-          No {activeFilter} courses yet.{" "}
-          <Link href="/courses" className="text-primary hover:underline">
-            Browse all courses
-          </Link>
-        </p>
+        <EmptyState
+          icon={BookOpen}
+          title={`No ${activeFilter} courses yet`}
+          subtitle="New courses are added regularly. Explore other categories in the meantime."
+          action={
+            <Link href="/courses" className={emptyStateActionClassName}>
+              Browse all courses
+            </Link>
+          }
+        />
       )}
     </div>
   );

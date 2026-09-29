@@ -1,7 +1,12 @@
 import Link from "next/link";
+import { SearchX } from "lucide-react";
 
 import CourseCard from "@/components/shared/course-card";
 import CoursePagination from "@/components/shared/course-pagination";
+import {
+  EmptyState,
+  emptyStateActionClassName,
+} from "@/components/shared/empty-state";
 import type { Course } from "@/data/courses";
 import {
   coursesScope,
@@ -27,18 +32,16 @@ export default function CourseResults({
 }: CourseResultsProps) {
   if (courses.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-2 py-16 text-center">
-        <p className="font-heading text-xl font-semibold text-foreground">
-          No courses match your filters
-        </p>
-        <p className="text-base leading-[1.6] text-muted-foreground">
-          Try a different search or{" "}
-          <Link href={scope.basePath} className="text-primary hover:underline">
-            clear all filters
+      <EmptyState
+        icon={SearchX}
+        title="No courses match your filters"
+        subtitle="Try a different search, level or category."
+        action={
+          <Link href={scope.basePath} className={emptyStateActionClassName}>
+            Clear all filters
           </Link>
-          .
-        </p>
-      </div>
+        }
+      />
     );
   }
 

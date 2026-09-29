@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { UserSearch } from "lucide-react";
 
 import CreatorCard from "@/components/shared/creator-card";
+import {
+  EmptyState,
+  emptyStateActionClassName,
+} from "@/components/shared/empty-state";
 import SubPageHeader from "@/components/shared/sub-page-header";
 import { creators } from "@/data/creators";
 
@@ -41,12 +46,16 @@ export default async function CreatorsPage({
               ))}
             </ul>
           ) : (
-            <p className="py-16 text-center text-base leading-[1.6] text-muted-foreground">
-              No creators match &ldquo;{query}&rdquo;.{" "}
-              <Link href="/creators" className="text-primary hover:underline">
-                See all creators
-              </Link>
-            </p>
+            <EmptyState
+              icon={UserSearch}
+              title="No creators found"
+              subtitle={`No creators match “${query}”. Try a different name or skill.`}
+              action={
+                <Link href="/creators" className={emptyStateActionClassName}>
+                  See all creators
+                </Link>
+              }
+            />
           )}
         </div>
       </section>
