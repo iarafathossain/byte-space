@@ -1,0 +1,17 @@
+name: Check Node.js and Git versions
+
+on: [push, workflow_dispatch]
+
+jobs:
+  node-git-version-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Working Directory
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_WORKSPACE
+      - name: Check Node.js version
+        run: node -v
+      - name: Check Git version
+        run: git --version
