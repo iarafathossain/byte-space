@@ -1,0 +1,13 @@
+name: Run the linter
+
+on: [push, workflow_dispatch]
+
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Working Directory
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_WORKSPACE
